@@ -1,0 +1,7 @@
+**/env1/
+**/_pycache_/
+**/node_modules/
+**/.pnp/
+**/.pnp.js/
+
+**/.env

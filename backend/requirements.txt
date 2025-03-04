@@ -1,0 +1,7 @@
+
+#building rest apis
+fastapi==0.115.0
+
+#server to run app
+uvicorn == 0.30.6
+
