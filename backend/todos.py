@@ -34,7 +34,7 @@ def get_all_todos(limit: Optional[int] = Query(10), offset:Optional[int] = Query
     todos = [] # list of dict
     for row in todos_from_db:
         todos.append({"title" : row[0]
-                    ,"desc" : row[1]
+                    ,"descr" : row[1]
                     ,"status" : row[2]
                     })
     cursor.close()
@@ -90,7 +90,7 @@ def get_todos_by_status(status: str) -> List[dict]:
     todos = [] # list of dict
     for row in todos_from_db:
         todos.append({"title" : row[0]
-                    ,"desc" : row[1]
+                    ,"descr" : row[1]
                     ,"status" : row[2]
                     })
     cursor.close()
@@ -135,7 +135,7 @@ def create_Todo(todo: Todo):
   
 
 @router.put('/api/v1/todos/updateTodo', status_code=status.HTTP_200_OK)
-def updateTodo(payload:dict) -> bool:
+def updateTodo(payload:dict):
 
     query = f"update todo set descr = '{payload['descr']}', status = '{payload['status']}' where title = '{payload['title']}' "
     conn = database.get_db()
@@ -143,22 +143,24 @@ def updateTodo(payload:dict) -> bool:
         raise HTTPException(status_code=500, detail="Database connection failed")
     cursor = conn.cursor()
     cursor.execute(query)
+    conn.commit()
     cursor.close()
     conn.close() 
-    return True
+    return {"message" : "Todo updated successfully"}
 
 
 @router.delete('/api/v1/todos/delete-by-title/{title}', status_code=status.HTTP_200_OK)
-def deleteTodo(title: str) -> bool:
+def deleteTodo(title: str):
     query = f" delete from todo where title = '{title}';"
     conn = database.get_db()
     if conn is None:
         raise HTTPException(status_code=500, detail="Database connection failed")
     cursor = conn.cursor()
     cursor.execute(query)
+    conn.commit()
     cursor.close()
     conn.close() 
-    return True
+    return {"message" : "Todo deleted successfully"}
 
 
 #status

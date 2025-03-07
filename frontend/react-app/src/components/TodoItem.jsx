@@ -4,7 +4,7 @@ import './TodoItem.css';
 function TodoItem(props) {
   
   let title = props.title;
-  let description = props.desc || "default description";
+  let descr = props.descr;
   let status = props.status;
   let createAt = props.createAt;
   let borderColor = props.borderColor;
@@ -12,7 +12,7 @@ function TodoItem(props) {
   return (
     <div className='TodoItem' style={{ borderTop: `6px solid ${borderColor}` }} >
       <h2>{title}</h2>
-      <p>{description}</p>
+      <p>{descr}</p>
       <div className='stats'></div>
       <p className='para'>{status}</p>
       <p>created at: {createAt}</p>
