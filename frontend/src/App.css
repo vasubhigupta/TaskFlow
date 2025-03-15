@@ -31,4 +31,31 @@ h1 {
     margin: 10px 0;
 }
 
+.addTodo{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.todoInput{
+    outline: 0;
+    border:none;
+    width: 180px;
+    height: 35px;
+    font-size: 15px;
+    background: white;
+    /* background: transparent; */
+    border-bottom: 2px solid brown;
+}
+
+#addTodoBtn{
+    border: none;
+    background: transparent;
+}
+
+#btnIcon{
+    color: green;
+}
+
+
 
