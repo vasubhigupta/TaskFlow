@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import greet, todos, db_tester
+import greet, todos, auth
 app = FastAPI()
 #instance of FastAPI class
 origins = ['http://localhost:3000']
@@ -8,12 +8,13 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins = origins,
     allow_credentials = True,
-    allow_methods = ["GET","POST"],
+    allow_methods = ["GET","POST","DELETE"],
     allow_headers=["*"]
 )    
 
 app.include_router(greet.router)
 app.include_router(todos.router)
+app.include_router(auth.router)
 
 
 

@@ -13,15 +13,29 @@ const getRandomBorderColor = () => {
 
 
 function App() {  
-    let [todosList,setTodosList] = useState([]);
 
-    useEffect(() => {    //useEffect(do,while)
-      
+    useEffect(() => {    //useEffect(do,while)  
       axios.get('http://127.0.0.1:8000/api/v1/todos')   //axios use
       .then((res) => {  
       setTodosList(res.data);
        })
     }, []);
+
+    let [todosList,setTodosList] = useState([]);
+
+    function deleteTodo(idx){
+      const delTodo = todosList[idx];
+      console.log(delTodo)
+      todosList.splice(idx,1);
+      axios.delete(`http://localhost:8000/api/v1/todos/delete-by-title/${delTodo.title}`)
+      .then((res) =>{
+        setTodosList(todosList)
+      });
+    };
+
+
+
+
 
     function addTodo(e){
       e.preventDefault();
@@ -55,8 +69,8 @@ function App() {
 
       <div className="todoList">
        { 
-      todosList.map((todo) => 
-        <TodoItem title = {todo.title}  descr = {todo.descr} status = {todo.status} borderColor={getRandomBorderColor()} /> )    
+      todosList.map((todo,idx) => 
+        <TodoItem title = {todo.title}  descr = {todo.descr} status = {todo.status} idx={idx} deleteTodo = {deleteTodo} borderColor={getRandomBorderColor()} /> )    
         //we cant print a object directly in react i will give error, so we acces the each individual item in its primitive form using map
        }
       {/* <TodoItem title = 'Wake up'  descr = 'wake up now' status = 'completed' createAt = '17-02-2025 02:00PM' borderColor={getRandomBorderColor()} /> */}
